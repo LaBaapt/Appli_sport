@@ -329,7 +329,7 @@ function demoOff(){if(!UI.demo)return;S=REAL;REAL=null;UI.demo=false;UI.progEx=n
 
 /* ============ RENDU ============ */
 const app=$("#app"),layer=$("#layer");
-function header(){return `<header class="top"><button class="brand" data-act="nav" data-v="accueil" aria-label="Séance">S7</button><span class="sync" data-sync></span></header>${UI.demo?`<button class="banner" data-act="demoOff"><span><b>Données de démo</b><br><span class="small" style="color:#161514">Rien n’est enregistré. Touche pour revenir à tes vraies données.</span></span>${ARROW}</button>`:""}`}
+function header(){return `<header class="top top-tab"><span class="sync" data-sync></span></header>${UI.demo?`<button class="banner" data-act="demoOff"><span><b>Données de démo</b><br><span class="small" style="color:#161514">Rien n’est enregistré. Touche pour revenir à tes vraies données.</span></span>${ARROW}</button>`:""}`}
 const TABS=[["accueil","Séance"],["calendrier","Calendrier"],["programme","Programme"],["progres","Progrès"],["exercices","Exos"],["mesures","Mesures"]];
 function tabbar(v){return `<nav class="tabbar" aria-label="Navigation"><div class="in">${TABS.map(([k,l])=>`<button class="${k===v?"on":""}" data-act="nav" data-v="${k}" ${k===v?'aria-current="page"':""}>${l}</button>`).join("")}</div></nav>`}
 function render(){
