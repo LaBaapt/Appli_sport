@@ -1,6 +1,6 @@
 /* S7 — service worker : précache complet, cache d’abord.
    Incrémenter CACHE à chaque déploiement pour que l’iPhone récupère la nouvelle version. */
-const CACHE = "s7-v1";
+const CACHE = "s7-v2";
 const ASSETS = [
   "./",
   "index.html",

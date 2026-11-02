@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Génère les icônes de la PWA S7 (fond #161514, « S7 » en Anton #FF5B4D).
+"""Génère les icônes de la PWA S7 (fond #161514, « S » en Anton #FF5B4D).
 
 Usage (depuis la racine du dépôt) : python3 tools/make-icons.py
 Dépendance : Pillow (FreeType avec support WOFF2, standard dans les wheels Pillow).
@@ -12,19 +12,19 @@ FONT = ROOT / "fonts" / "anton-latin-400-normal.woff2"
 OUT = ROOT / "icons"
 BG = "#161514"
 FG = "#FF5B4D"
-TEXT = "S7"
+TEXT = "S"
 SS = 4  # suréchantillonnage pour un rendu net
 
 
-def make(size: int, text_width_ratio: float) -> Image.Image:
-    """text_width_ratio : largeur du texte / côté de l’icône."""
+def make(size: int, text_height_ratio: float) -> Image.Image:
+    """text_height_ratio : hauteur de la lettre / côté de l’icône."""
     big = size * SS
     img = Image.new("RGB", (big, big), BG)
     draw = ImageDraw.Draw(img)
-    # Taille de police pour que le texte occupe la largeur visée
+    # Taille de police pour que la lettre occupe la hauteur visée
     probe = ImageFont.truetype(str(FONT), 1000)
     l, t, r, b = probe.getbbox(TEXT)
-    fs = int(1000 * big * text_width_ratio / (r - l))
+    fs = int(1000 * big * text_height_ratio / (b - t))
     font = ImageFont.truetype(str(FONT), fs)
     l, t, r, b = font.getbbox(TEXT)
     # Centrage optique sur la boîte réelle des glyphes
@@ -36,12 +36,12 @@ def make(size: int, text_width_ratio: float) -> Image.Image:
 
 def main() -> None:
     OUT.mkdir(exist_ok=True)
-    # Icônes « any » et apple-touch : texte large (iOS arrondit les coins lui-même)
+    # Icônes « any » et apple-touch : lettre grande (iOS arrondit les coins lui-même)
     for size, name in [(180, "apple-touch-icon.png"), (192, "icon-192.png"), (512, "icon-512.png")]:
-        make(size, 0.56).save(OUT / name, optimize=True)
-    # Maskable : le texte tient dans la zone sûre (cercle de 80 % du côté)
+        make(size, 0.6).save(OUT / name, optimize=True)
+    # Maskable : la lettre tient dans la zone sûre (cercle de 80 % du côté)
     for size in (192, 512):
-        make(size, 0.42).save(OUT / f"icon-maskable-{size}.png", optimize=True)
+        make(size, 0.46).save(OUT / f"icon-maskable-{size}.png", optimize=True)
     print("Icônes écrites dans", OUT)
 
 
